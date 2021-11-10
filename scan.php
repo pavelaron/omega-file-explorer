@@ -27,6 +27,7 @@ function scan($dir) {
 				'name' => $f,
 				'type' => $is_dir ? 'folder' : 'file',
 				'path' => $path,
+				'is_img' => @is_array(getimagesize($path)),
 				$key => $is_dir ? scan($path) : filesize($path)
 			);
 		}

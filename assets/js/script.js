@@ -324,14 +324,19 @@ $(function(){
 
 					var fileSize = bytesToSize(f.size),
 						name = escapeHTML(f.name),
-						fileType = name.split('.'),
+						fileComponents = name.split('.'),
 						icon = '<span class="icon file"></span>';
 
-					fileType = fileType[fileType.length-1];
+					var lightboxData = (f.is_image && ' data-lightbox="img"') || '';
+					var fileType = fileComponents[fileComponents.length - 1];
+					icon = '<span class="icon file f-' + fileType + '">.' + fileType + '</span>';
 
-					icon = '<span class="icon file f-'+fileType+'">.'+fileType+'</span>';
-
-					var file = $('<li class="files"><a href="'+ f.path+'" data-lightbox="img" title="'+ name +'" class="files">'+icon+'<span class="name">'+ name +'</span> <span class="details">'+fileSize+'</span></a></li>');
+					var file = $('<li class="files"><a href="'
+						+ f.path + '" data-lightbox="img" title="' 
+						+ name +'" class="files"' + lightboxData + '>' 
+						+ icon + '<span class="name">'
+						+ name +'</span> <span class="details">'
+						+ fileSize +'</span></a></li>');
 					file.appendTo(fileList);
 				});
 
