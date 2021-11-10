@@ -327,12 +327,12 @@ $(function(){
 						fileComponents = name.split('.'),
 						icon = '<span class="icon file"></span>';
 
-					var lightboxData = (f.is_image && ' data-lightbox="img"') || '';
+					var lightboxData = (f.is_img && ' data-lightbox="img"') || '';
 					var fileType = fileComponents[fileComponents.length - 1];
 					icon = '<span class="icon file f-' + fileType + '">.' + fileType + '</span>';
 
 					var file = $('<li class="files"><a href="'
-						+ f.path + '" data-lightbox="img" title="' 
+						+ f.path + '" title="' 
 						+ name +'" class="files"' + lightboxData + '>' 
 						+ icon + '<span class="name">'
 						+ name +'</span> <span class="details">'
