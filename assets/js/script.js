@@ -280,7 +280,7 @@ $(function() {
 					icon = '<span class="icon file f-' + fileType + '">.' + fileType + '</span>';
 
 					var file = $('<li class="files">'
-						+ '<a href="' + encodeURIComponent(f.path) + '" title="' + name + '" class="files">' 
+						+ '<a href="file.php?path=' + encodeURIComponent(f.path) + '" title="' + name + '" class="files">' 
 						+ icon + '<span class="name">' + name + '</span> <span class="details">'
 						+ fileSize + '</span></a></li>');
 
