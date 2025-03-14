@@ -32,7 +32,6 @@ $(function() {
 			search.find('input[type=search]').show().trigger('focus');
 		});
 
-
 		// Listening for keyboard input on the search field.
 		// We are using the "input" event which detects cut and paste
 		// in addition to keyboard input.
@@ -308,7 +307,7 @@ $(function() {
 					var lastName = name[name.length - 1];
 
 					var item = (i !== breadcrumbsUrls.length - 1)
-						? '<a href="' + u + '"><span class="folderName">' + lastName + '</span></a> <span class="arrow">→</span> '
+						? '<a href="' + u + '"><span class="folderName">' + lastName + '</span></a> <span class="arrow">/</span> '
 						: '<span class="folderName">' + lastName + '</span>';
 
 					url += item;

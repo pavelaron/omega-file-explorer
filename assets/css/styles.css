@@ -50,6 +50,7 @@ body {
 .filemanager .breadcrumbs {
 	color: #ffffff;
 	margin-left:20px;
+	margin-right: 30px;
 	font-size: 24px;
 	font-weight: 700;
 	line-height: 35px;
@@ -130,6 +131,8 @@ body {
 	border: none;
 	padding-right: 10px;
 	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */

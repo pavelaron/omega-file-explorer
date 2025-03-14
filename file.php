@@ -3,7 +3,9 @@
 $path = $_GET['path'];
 
 if (!file_exists($path)) {
+	http_response_code(404);
 	echo 'File not found';
+
 	exit;
 }
 
