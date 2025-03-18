@@ -259,8 +259,9 @@ $(function() {
 					var folder = $(
 						'<li class="folders"><a href="'
 						+ f.path + '" title="' + f.path +'" class="folders">'
-						+ icon + '<span class="name">' + name + '</span> <span class="details">'
-						+ itemsLength + '</span></a></li>'
+						+ icon + '<div class="container-info"><span class="name">'
+						+ name + '</span> <span class="details">'
+						+ itemsLength + '</span></div></a></li>'
 					);
 
 					folder.appendTo(fileList);
@@ -280,8 +281,8 @@ $(function() {
 
 					var file = $('<li class="files">'
 						+ '<a href="file.php?path=' + encodeURIComponent(f.path) + '" title="' + name + '" class="files">' 
-						+ icon + '<span class="name">' + name + '</span> <span class="details">'
-						+ fileSize + '</span></a></li>');
+						+ icon + '<div class="container-info"><span class="name">' + name + '</span> <span class="details">'
+						+ fileSize + '</span></div></a></li>');
 
 					file.appendTo(fileList);
 				});
