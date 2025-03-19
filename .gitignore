@@ -1,0 +1,2 @@
+files/storage/**/*
+!files/storage/.gitkeep
