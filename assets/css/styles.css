@@ -195,6 +195,10 @@ body {
 
 }
 
+.filemanager .data li a {
+	display: block;
+}
+
 .filemanager .data .container-info {
 	display: inline;
 }
@@ -267,12 +271,10 @@ body {
 }
 
 @media all and (max-width:965px) {
-
 	.filemanager .data li {
 		width: 100%;
 		margin: 5px 0;
 	}
-
 }
 
 /* Chrome, Safari, Opera */
