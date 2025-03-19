@@ -15,6 +15,9 @@ jobs:
       - name: Minify Action
         uses: dra1ex/minify-action@v1.0.3
 
+      - name: Create files directory
+        run: mkdir ${{ github.workspace }}/oos-app-file-explorer/files
+
       - name: Archive artifact
         uses: actions/upload-artifact@v4
         with:
