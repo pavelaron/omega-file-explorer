@@ -2,6 +2,6 @@
   "id": "oos-app-file-explorer",
   "name": "File Explorer",
   "icon": "icon.svg",
-  "description": ""
+  "description": "File explorer for OnionOS"
 }
 
