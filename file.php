@@ -1,5 +1,12 @@
 <?php
 
+if (!isset($_GET['path'])) {
+	http_response_code(400);
+	echo 'Bad request';
+
+	exit;
+}
+
 $path = $_GET['path'];
 
 if (!file_exists($path)) {
@@ -80,10 +87,10 @@ $mime_types = array(
 	'manifest'  => 'text/cache-manifest',
 );
 
-$extension = end(explode('.', $path));
+$extension = pathinfo($path, PATHINFO_EXTENSION);
 $content_type = isset($mime_types[$extension])
 	? $mime_types[$extension] 
 	: 'application/octet-stream';
 
 header("Content-type: $content_type");
-readfile($path);
+readfile(implode('/', [__DIR__, $path]));
