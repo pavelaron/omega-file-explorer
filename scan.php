@@ -22,27 +22,40 @@ function is_media($path) {
 function scan($dir) {
 	$files = array();
 
-	// Is there actually such a folder/file?
+	// Check if directory exists
 	if (!file_exists($dir)) {
 		return $files;
 	}
 
-	foreach (scandir($dir) as $f) {
-		if (!$f || $f[0] == '.') {
-			continue; // Ignore hidden files
-		}
-		
-		$path = "$dir/$f";
-		$is_dir = is_dir($path);
-		$key = $is_dir ? 'items' : 'size';
-		
-		$files[] = array(
-			'name' => $f,
-			'type' => $is_dir ? 'folder' : 'file',
-			'path' => $path,
-			'is_media' => is_media($path),
-			$key => $is_dir ? scan($path) : filesize($path)
+	try {
+		$directoryIterator = new RecursiveDirectoryIterator(
+			$dir,
+			RecursiveDirectoryIterator::SKIP_DOTS,
 		);
+
+		// Only iterate through the current directory level (not recursive)
+		foreach ($directoryIterator as $fileInfo) {
+			$fileName = $fileInfo->getFilename();
+
+			// Skip hidden files
+			if ($fileName[0] == '.') {
+				continue;
+			}
+			
+			$path = $fileInfo->getPathname();
+			$isDir = $fileInfo->isDir();
+			$key = $isDir ? 'items' : 'size';
+
+			$files[] = array(
+				'name' => $fileName,
+				'type' => $isDir ? 'folder' : 'file',
+				'path' => $path,
+				'is_media' => is_media($path),
+				$key => $isDir ? scan($path) : $fileInfo->getSize(),
+			);
+		}
+	} catch (Exception $e) {
+		$files = [];
 	}
 
 	return $files;
