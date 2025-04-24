@@ -15,33 +15,33 @@ function scan($dir) {
 	if (!file_exists($dir)) {
 		return array();
 	}
-	
+
 	$result = array();
 
 	foreach ($dir as $key => $child) {
-				$name = $child->getBasename();
+		$name = $child->getBasename();
 
-				if ($child->isDot() || $name[0] === '.') {
-					continue;
-				}
-				
-				$isDir = $child->isDir();
-				$path = $child->getPath();
-				
-				$conditional = $isDir ? 'items' : 'size';
-				$conditionalValue = $isDir
-					? scan(new DirectoryIterator($child->getPathname()))
-					: $child->getSize();
-				
-				$result[] = array(
-					'name' => $name,
-					'path' => "$path/$name",
-					'is_media' => is_media($name),
-					$conditional => $conditionalValue
-				);
+		if ($child->isDot() || $name[0] === '.') {
+			continue;
 		}
-		
-		return $result;
+
+		$isDir = $child->isDir();
+		$path = $child->getPath();
+
+		$conditional = $isDir ? 'items' : 'size';
+		$conditionalValue = $isDir
+			? scan(new DirectoryIterator($child->getPathname()))
+			: $child->getSize();
+
+		$result[] = array(
+			'name' => $name,
+			'path' => "$path/$name",
+			'is_media' => is_media($name),
+			$conditional => $conditionalValue
+		);
+	}
+
+	return $result;
 }
 
 header('Content-type: application/json');
