@@ -43,7 +43,7 @@ body {
 	left: 0;
 }
 
-.container-loading .image-loading {
+.container-loading #image-loading {
 	width: 150px;
 	height: auto;
 	position: absolute;

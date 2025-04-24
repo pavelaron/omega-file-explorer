@@ -1,4 +1,4 @@
-$(function() {
+var loadApp = function() {
 	var filemanager = $('.filemanager');
 	var breadcrumbs = $('.breadcrumbs');
 	var fileList = filemanager.find('.data');
@@ -320,30 +320,37 @@ $(function() {
 			breadcrumbs.text('').append(url);
 
 			// Show the generated elements
-
-			fileList.animate({'display':'inline-block'});
-
+			fileList.animate({ 'display': 'inline-block' });
 		}
 
 		// This function escapes special html characters in names
 
 		function escapeHTML(text) {
-			return text.replace(/\&/g,'&amp;').replace(/\</g,'&lt;').replace(/\>/g,'&gt;');
+			return text
+				.replace(/\&/g,'&amp;')
+				.replace(/\</g,'&lt;')
+				.replace(/\>/g,'&gt;');
 		}
 
 		// Convert file sizes from bytes to human readable units
 
 		function bytesToSize(bytes) {
 			var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-			if (bytes == 0) {
+			if (bytes === 0) {
 				return '0 Byte';
 			}
 
 			var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
 			return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 		}
-	});
 
-	$('.container-loading').hide();
-	$('.filemanager').show();
+		$('.container-loading').hide();
+		$('.filemanager').show();
+	});
+};
+
+$(document).ready(function() {
+	$('#image-loading')
+		.attr('src', 'assets/images/icons/onion.svg')
+		.on('load', loadApp);
 });
