@@ -1,11 +1,5 @@
 <?php
 
-$dir = "files";
-
-// Run the recursive function 
-
-$response = scan($dir);
-
 function is_media($path) {
 	if (@is_array(getimagesize($path))) {
 		return true;
@@ -17,57 +11,42 @@ function is_media($path) {
 	return in_array($ext, array('flv', 'mp4', 'ogv', 'webm'));
 }
 
-// This function scans the files folder recursively, and builds a large array
-
 function scan($dir) {
-	$files = array();
-
-	// Check if directory exists
 	if (!file_exists($dir)) {
-		return $files;
+		return array();
 	}
+	
+	$result = array();
 
-	try {
-		$directoryIterator = new RecursiveDirectoryIterator(
-			$dir,
-			RecursiveDirectoryIterator::SKIP_DOTS,
-		);
+	foreach ($dir as $key => $child) {
+				$name = $child->getBasename();
 
-		// Only iterate through the current directory level (not recursive)
-		foreach ($directoryIterator as $fileInfo) {
-			$fileName = $fileInfo->getFilename();
-
-			// Skip hidden files
-			if ($fileName[0] == '.') {
-				continue;
-			}
-			
-			$path = $fileInfo->getPathname();
-			$isDir = $fileInfo->isDir();
-			$key = $isDir ? 'items' : 'size';
-
-			$files[] = array(
-				'name' => $fileName,
-				'type' => $isDir ? 'folder' : 'file',
-				'path' => $path,
-				'is_media' => is_media($path),
-				$key => $isDir ? scan($path) : $fileInfo->getSize(),
-			);
+				if ($child->isDot() || $name[0] === '.') {
+					continue;
+				}
+				
+				$isDir = $child->isDir();
+				$path = $child->getPath();
+				
+				$conditional = $isDir ? 'items' : 'size';
+				$conditionalValue = $isDir
+					? scan(new DirectoryIterator($child->getPathname()))
+					: $child->getSize();
+				
+				$result[] = array(
+					'name' => $name,
+					'path' => "$path/$name",
+					'is_media' => is_media($name),
+					$conditional => $conditionalValue
+				);
 		}
-	} catch (Exception $e) {
-		$files = [];
-	}
-
-	return $files;
+		
+		return $result;
 }
-
-
-// Output the directory listing as JSON
 
 header('Content-type: application/json');
 echo json_encode(array(
-	"name"	=> "files",
-	"type"	=> "folder",
-	"path"	=> $dir,
-	"items"	=> $response
+	'name'	=> 'files',
+	'path'	=> 'files',
+	'items'	=> scan(new DirectoryIterator('files'))
 ));

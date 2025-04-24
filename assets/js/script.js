@@ -189,18 +189,13 @@ $(function() {
 
 		function searchData(data, searchTerms) {
 			data.forEach(function(d) {
-				if (d.type === 'folder') {
-					searchData(d.items,searchTerms);
-
-					if (d.name.toLowerCase().match(searchTerms)) {
-						folders.push(d);
-					}
+				if ('size' in d) {
+					d.name.toLowerCase().match(searchTerms) && files.push(d);
+					return;
 				}
-				else if (d.type === 'file') {
-					if (d.name.toLowerCase().match(searchTerms)) {
-						files.push(d);
-					}
-				}
+				
+				searchData(d.items,searchTerms);
+				d.name.toLowerCase().match(searchTerms) && folders.push(d);
 			});
 
 			return {
@@ -217,7 +212,7 @@ $(function() {
 
 			if (Array.isArray(data)) {
 				data.forEach(function(d) {
-					if (d.type === 'folder') {
+					if ('items' in d) {
 						scannedFolders.push(d);
 						return;
 					}
@@ -233,7 +228,10 @@ $(function() {
 			// Empty the old result and make the new one
 
 			fileList.empty().hide();
-			var classAction = (!scannedFolders.length && !scannedFiles.length) ? 'show' : 'hide';
+			
+			var nothingFound = scannedFolders.length + scannedFiles.length === 0;
+			var classAction = nothingFound ? 'show' : 'hide';
+
 			filemanager.find('.nothingfound')[classAction]();
 
 			if (scannedFolders.length) {
@@ -277,11 +275,15 @@ $(function() {
 					var icon = '<span class="icon file"></span>';
 
 					var fileType = fileComponents[fileComponents.length - 1];
-					icon = '<span class="icon file f-' + fileType + '">.' + fileType + '</span>';
+					icon = '<span class="icon file f-'
+						+ fileType + '">.'
+						+ fileType + '</span>';
 
 					var file = $('<li class="files">'
-						+ '<a href="file.php?path=' + encodeURIComponent(f.path) + '" title="' + name + '" class="files">' 
-						+ icon + '<div class="container-info"><span class="name">' + name + '</span> <span class="details">'
+						+ '<a href="file.php?path=' + encodeURIComponent(f.path)
+						+ '" title="' + name + '" class="files">' 
+						+ icon + '<div class="container-info"><span class="name">'
+						+ name + '</span> <span class="details">'
 						+ fileSize + '</span></div></a></li>');
 
 					file.appendTo(fileList);

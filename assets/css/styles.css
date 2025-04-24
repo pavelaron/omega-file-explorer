@@ -255,8 +255,9 @@ body {
 	position: absolute;
 	color: #ffffff;
 	font-size: 14em;
-	margin-right: 0.092em;
-	right: 0;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .filemanager .nothingfound span {
