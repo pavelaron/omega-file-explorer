@@ -343,4 +343,7 @@ $(function() {
 			return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 		}
 	});
+
+	$('.container-loading').hide();
+	$('.filemanager').show();
 });

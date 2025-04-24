@@ -32,6 +32,25 @@ body {
 	max-width:1340px;
 	position: relative;
 	margin: 100px auto 50px;
+	display: none;
+}
+
+.container-loading {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.container-loading .image-loading {
+	width: 150px;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	animation: onion-rotate 1.5s infinite;
 }
 
 @media all and (max-width: 965px) {
@@ -290,6 +309,14 @@ body {
 	0% 		{ transform: scale(1.2); opacity: 0; }
 }
 
+@keyframes onion-rotate {
+  0% {
+    transform: translate(-50%, -50%) rotateY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateY(359deg);
+  }
+}
 
 /*-------------------------
 		Icons
