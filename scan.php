@@ -26,16 +26,16 @@ function scan($dir) {
 		}
 
 		$isDir = $child->isDir();
-		$path = $child->getPath();
+		$path = $child->getPathname();
 
 		$conditional = $isDir ? 'items' : 'size';
 		$conditionalValue = $isDir
-			? scan(new DirectoryIterator($child->getPathname()))
+			? scan(new DirectoryIterator($path))
 			: $child->getSize();
 
 		$result[] = array(
 			'name' => $name,
-			'path' => "$path/$name",
+			'path' => $path,
 			'is_media' => is_media($name),
 			$conditional => $conditionalValue
 		);
