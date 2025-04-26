@@ -60,7 +60,7 @@ body {
 	height: 60px;
 	left: 50%;
 	top: 50%;
-	background-image: url('/assets/images/icons/onion.svg');
+	background-image: url('../images/icons/onion.svg');
 	transform: translate(-50%, -50%);
 	animation: onion-rotate 1.5s infinite;
 }
