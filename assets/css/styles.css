@@ -53,6 +53,18 @@ body {
 	animation: onion-rotate 1.5s infinite;
 }
 
+.caption-loading:before {
+	content: '';
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	left: 50%;
+	top: 50%;
+	background-image: url('/assets/images/icons/onion.svg');
+	transform: translate(-50%, -50%);
+	animation: onion-rotate 1.5s infinite;
+}
+
 @media all and (max-width: 965px) {
 	.filemanager {
 		margin: 30px auto 0;

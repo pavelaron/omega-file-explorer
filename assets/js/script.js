@@ -291,6 +291,8 @@ var loadApp = function() {
 
 				$('a.files').simpleLightbox({
 					videoRegex: new RegExp(/(.mp4|.ogv|.webm|.flv)$/),
+					loadingTextClass: 'caption-loading',
+					loadingCaption: '',
 				});
 			}
 
