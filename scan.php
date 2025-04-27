@@ -18,7 +18,7 @@ function scan($dir) {
 
 	$result = array();
 
-	foreach ($dir as $key => $child) {
+	foreach ($dir as $child) {
 		$name = $child->getBasename();
 
 		if ($child->isDot() || $name[0] === '.') {
@@ -34,9 +34,9 @@ function scan($dir) {
 			: $child->getSize();
 
 		$result[] = array(
-			'name' => $name,
-			'path' => $path,
-			'is_media' => is_media($name),
+			'name'       => $name,
+			'path'       => $path,
+			'is_media'   => is_media($name),
 			$conditional => $conditionalValue
 		);
 	}
@@ -46,7 +46,7 @@ function scan($dir) {
 
 header('Content-type: application/json');
 echo json_encode(array(
-	'name'	=> 'files',
-	'path'	=> 'files',
-	'items'	=> scan(new DirectoryIterator('files'))
+	'name'  => 'files',
+	'path'  => 'files',
+	'items' => scan(new DirectoryIterator('files'))
 ));
