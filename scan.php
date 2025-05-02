@@ -1,14 +1,23 @@
 <?php
 
-function is_media($path) {
-	if (@is_array(getimagesize($path))) {
-		return true;
-	}
-
-	$segments = explode('.', $path);
-	$ext = end($segments);
-
-	return in_array($ext, array('flv', 'mp4', 'ogv', 'webm'));
+function is_media($child) {
+	$ext = strtolower($child->getExtension());
+	
+	return in_array(
+		$ext,
+		[
+			'bmp',
+			'gif',
+			'png',
+			'jpg',
+			'jpeg',
+			'svg',
+			'flv',
+			'mp4',
+			'ogv',
+			'webm'
+		]
+	);
 }
 
 function scan($dir) {
@@ -36,7 +45,7 @@ function scan($dir) {
 		$result[] = array(
 			'name'       => $name,
 			'path'       => $path,
-			'is_media'   => is_media($name),
+			'is_media'   => is_media($child),
 			$conditional => $conditionalValue
 		);
 	}
